@@ -59,11 +59,11 @@ public class Array<T> {
      * @param element
      */
     public void add(int index, T element) {
-        if (this.size == this.data.length) {
-            throw new IllegalArgumentException("AddLast failed. Array is full.");
-        }
         if (index < 0 || index > this.size) {
             throw new IllegalArgumentException("AddLast failed. Required index >= 0 and <= size");
+        }
+        if (this.size == this.data.length) {
+            this.resize(2 * this.data.length);
         }
         for (int i = this.size - 1; i >= index; i--) {
             this.data[i + 1] = this.data[i];
@@ -163,6 +163,9 @@ public class Array<T> {
         }
         this.size--;
         this.data[size] = null;
+        if (size == this.data.length / 4 && this.data.length / 2 != 0) {
+            resize(data.length / 2);
+        }
         return ret;
     }
 
@@ -209,5 +212,20 @@ public class Array<T> {
         }
         res.append("]");
         return res.toString();
+    }
+
+    /**
+     * new 一个容量为 newCapacity 的新数组
+     * 将 this.data 的元素复制到新数组
+     * 将 this.data 的指向为新数组
+     *
+     * @param newCapacity
+     */
+    private void resize(int newCapacity) {
+        T[] newData = (T[]) new Object[newCapacity];
+        for (int i = 0; i < this.size; i++) {
+            newData[i] = this.data[i];
+        }
+        this.data = newData;
     }
 }
