@@ -104,6 +104,24 @@ public class Array<T> {
     }
 
     /**
+     * 获取数组中最后一个元素
+     *
+     * @return
+     */
+    public T getLast() {
+        return get(size - 1);
+    }
+
+    /**
+     * 获取数组中第一个元素
+     *
+     * @return
+     */
+    public T getFirst() {
+        return get(0);
+    }
+
+    /**
      * 修改 index 索引位置的元素为 element
      *
      * @param index
